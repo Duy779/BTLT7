@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo Tabs trong jQuery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .tab-wrapper{
+        width: 500px;
+        margin: 50px auto;
+        border: solid 1px #acacac;
+        }
+        .tab-wrapper ul{
+            overflow: hidden;
+            background: #aee655;
+            margin: 0px;
+            padding: 0px;
+        }
+        .tab-wrapper ul li{
+            float: left;
+            list-style: none;
+            padding: 10px 20px;
+            background: #348ec9;
+            border-radius: 10px 10px 0px 0px;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+        .tab-wrapper ul li.active{
+            background: #Fff;
+        }
+        .tab-wrapper ul li.active a{
+            color: blue;
+        }   
+        .tab-wrapper ul li a{
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        .tab-content{
+            padding: 20px;
+        }
+        .tab-item{
+            display: none;
+        }
+        /*tab đang chọn hiển thị*/
+        .tab-item.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tab-wrapper">
+        <ul class="tab">
+            <li><a href="#tab-main-info" class="active">Thông tin chính</a></li>
+            <li><a href="#tab-image">Hình ảnh</a></li>
+            <li><a href="#tab-seo">SEO</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-item active" id="tab-main-info">
+                <h4>Thông tin chính</h4>
+                <p>1234</p>
+            </div>
+            <div class="tab-item" id="tab-image">
+                <h4>Hình ảnh</h4>
+                <p>5678</p>
+            </div>
+            <div class="tab-item" id="tab-seo">
+                <h4>SEO</h4>
+                <p>9</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('.tab-wrapper ul li a').click(function(e){
+                e.preventDefault();
+
+                // Xóa class active ở tất cả các tab
+                $('.tab-wrapper ul li a').removeClass('active');
+                // Thêm class active vào tab được nhấn
+                $(this).addClass('active');
+
+                // Ẩn toàn bộ nội dung tab-item
+                $('.tab-item').removeClass('active');
+                // Hiển thị nội dung tab tương ứng
+                $($(this).attr('href')).addClass('active');
+            });
+        });
+    </script>
+
+</body>
+</html>

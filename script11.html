@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Hiển thị tên file và phần mở rộng</title>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f4f6f8;
+}
+
+.text-center {
+    text-align: center;
+    color: #333;
+}
+
+.custom-file-wrp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.filename {
+    width: 200px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 5px 10px;
+    margin-right: 10px;
+    line-height: 20px;
+    border-radius: 5px;
+}
+
+.custom-file label {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-file input[type="file"] {
+    display: none;
+}
+</style>
+</head>
+<body>
+
+<h2 class="text-center">Custom File Input</h2>
+
+<div class="custom-file-wrp">
+    <div class="filename"></div>
+    <div class="custom-file">
+        <label for="fileupload">Upload</label>
+        <input type="file" id="fileupload">
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $("#fileupload").change(function(){
+        // Lấy tên file được chọn
+        let filePath = $(this).val().split("\\").pop();  // chỉ lấy tên file, bỏ đường dẫn
+        let fileName = filePath.split(".")[0];           // tên file
+        let fileExt = filePath.split(".").pop();         // phần mở rộng
+
+        if(filePath){
+            $(".filename").text(fileName + "." + fileExt);
+        } else {
+            $(".filename").text("Ex: sample.jpg");
+        }
+    });
+});
+</script>
+
+</body>
+</html>
