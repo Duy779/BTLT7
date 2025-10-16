@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<title>Return first and last name from a form (jQuery)</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<form id="form1">
+  First name: <input type="text" name="fname" value="David"><br>
+  Last name: <input type="text" name="lname" value="Beckham"><br>
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+$(document).ready(function() {
+  $("#form1").submit(function(e) {
+    e.preventDefault(); // Ngăn reload
+
+    let first = $("input[name='fname']").val();
+    let last = $("input[name='lname']").val();
+
+    alert("Họ và tên: " + first + " " + last);
+  });
+});
+</script>
+</body>
+</html>
+
+

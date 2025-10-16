@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Máy tính</title>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    body {
+        margin: 40px;
+        font-family: Arial;
+        text-align: center;
+    }
+    #calculator {
+        display: inline-block;
+        border: 2px solid #444;
+        padding: 15px;
+        border-radius: 10px;
+        background: #f2f2f2;
+    }
+    input[type="text"] {
+        width: 200px;
+        height: 35px;
+        font-size: 18px;
+        text-align: right;
+        margin-bottom: 10px;
+        padding-right: 5px;
+    }
+    table {
+        margin: auto;
+    }
+    button {
+        width: 45px;
+        height: 40px;
+        margin: 3px;
+        font-size: 18px;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+$(document).ready(function(){
+    // Khi người dùng nhấn vào nút (chuột)
+    $("button").click(function(){
+        let value = $(this).text();
+
+        if (value === "C") {
+            $("#display").val("");
+        } 
+        else if (value === "=") {
+            calculate();
+        } 
+        else {
+            $("#display").val($("#display").val() + value);
+        }
+    });
+    // Khi người dùng nhấn Enter trên bàn phím
+    $(document).keypress(function(e){
+        if (e.which === 13) { // phím Enter
+            calculate();
+        }
+    });
+    // Hàm tính toán
+    function calculate() {
+        let expr = $("#display").val().trim();
+        // Kiểm tra biểu thức có đúng dạng: số - toán tử - số
+        let regex = /^(\d+)\s*([\+\-\*\/])\s*(\d+)$/;
+
+        if (!regex.test(expr)) {
+            alert("Biểu thức không hợp lệ! Vui lòng nhập dạng: số1 toán_tử số2");
+            return;
+        }
+        // Tách toán hạng và toán tử
+        let match = expr.match(regex);
+        let num1 = parseFloat(match[1]);
+        let op = match[2];
+        let num2 = parseFloat(match[3]);
+        let result = 0;
+
+        switch (op) {
+            case "+": result = num1 + num2; break;
+            case "-": result = num1 - num2; break;
+            case "*": result = num1 * num2; break;
+            case "/":
+                if (num2 === 0) {
+                    alert("Không thể chia cho 0!");
+                    return;
+                }
+                result = num1 / num2;
+                break;
+        }
+
+        $("#display").val(result);
+    }
+});
+</script>
+</head>
+
+<body>
+<h2>Máy tính đơn giản</h2>
+
+<div id="calculator">
+    <input type="text" id="display" readonly><br>
+    <table>
+        <tr>
+            <td><button>7</button></td>
+            <td><button>8</button></td>
+            <td><button>9</button></td>
+            <td><button>/</button></td>
+        </tr>
+        <tr>
+            <td><button>4</button></td>
+            <td><button>5</button></td>
+            <td><button>6</button></td>
+            <td><button>*</button></td>
+        </tr>
+        <tr>
+            <td><button>1</button></td>
+            <td><button>2</button></td>
+            <td><button>3</button></td>
+            <td><button>-</button></td>
+        </tr>
+        <tr>
+            <td><button>0</button></td>
+            <td><button>C</button></td>
+            <td><button>=</button></td>
+            <td><button>+</button></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

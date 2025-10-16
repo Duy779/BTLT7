@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Form Validation Exercise</title>
+<style>
+    body { margin: 30px; font-family: Arial; text-align: center; }
+    label { display: block; margin-top: 10px; }
+    input, select { margin-top: 5px; padding: 5px; width: 250px; }
+    .error { color: red; font-size: 14px; }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+    // Nút Clear -> xóa toàn bộ dữ liệu
+    $("#clearBtn").click(function(){
+        $("form")[0].reset();
+        $(".error").text("");
+    });
+    // Nút Finish -> kiểm tra dữ liệu
+    $("#finishBtn").click(function(e){
+        e.preventDefault();
+        $(".error").text(""); // Xóa thông báo cũ
+        let isValid = true;
+        // --- Kiểm tra các trường bắt buộc ---
+        $("input[required]").each(function(){
+            if ($(this).val().trim() === "") {
+                $(this).next(".error").text("Trường này không được bỏ trống!");
+                isValid = false;
+            }
+        });
+        // --- Kiểm tra email ---
+        let email = $("#email").val().trim();
+        let emailPattern = /^[^@]+@[^@]+\.[^@]+$/;
+        if (email !== "" && !emailPattern.test(email)) {
+            $("#email").next(".error").text("Email không hợp lệ!");
+            isValid = false;
+        }
+        // --- Kiểm tra ngày sinh ---
+        let birth = $("#birthday").val().trim();
+        if (birth !== "") {
+            let dateParts = birth.split(/[-\/]/); // hỗ trợ cả / và -
+            let month = parseInt(dateParts[0]);
+            let day = parseInt(dateParts[1]);
+            let year = parseInt(dateParts[2]);
+            let currentYear = new Date().getFullYear();
+
+            if (isNaN(month) || month < 1 || month > 12 || isNaN(day) || day < 1 || day > 31 || isNaN(year) || year > currentYear) {
+                $("#birthday").next(".error").text("Ngày sinh không hợp lệ!");
+                isValid = false;
+            }
+        }
+        // --- Kiểm tra ZIP code ---
+        let zip = $("#zip").val().trim();
+        if (zip !== "" && !/^\d{5}$/.test(zip)) {
+            $("#zip").next(".error").text("Zip code phải có đúng 5 chữ số!");
+            isValid = false;
+        }
+        // --- Nếu hợp lệ ---
+        if (isValid) {
+            alert("Dữ liệu hợp lệ! Form đã hoàn tất.");
+        }
+    });
+});
+</script>
+</head>
+
+<body>
+<h2>Personal Information</h2>
+<form>
+    <label>Enter name*: <input type="text" id="name" required> <span class="error"></span></label>
+    
+    <label>Sex*:
+        <input type="radio" name="sex" value="Male" required> Male
+        <input type="radio" name="sex" value="Female" required> Female
+        <span class="error"></span>
+    </label>
+
+    <label>Enter email address*: <input type="text" id="email" required> <span class="error"></span></label>
+
+    <label>Enter birthday (MM/DD/YYYY)*: <input type="text" id="birthday" required> <span class="error"></span></label>
+
+    <label>Enter address line 1*: <input type="text" id="address1" required> <span class="error"></span></label>
+
+    <label>Enter city*: <input type="text" id="city" required> <span class="error"></span></label>
+
+    <label>Select a region*:
+        <select id="region" required>
+            <option value="">--Select--</option>
+            <option>North</option>
+            <option>South</option>
+            <option>East</option>
+            <option>West</option>
+        </select>
+        <span class="error"></span>
+    </label>
+
+    <label>Enter 5-digit ZIP code*: <input type="text" id="zip" required> <span class="error"></span></label>
+
+    <br><br>
+    <button type="button" id="clearBtn">Clear</button>
+    <button type="submit" id="finishBtn">Finish</button>
+</form>
+</body>
+</html>

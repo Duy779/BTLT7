@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<title>Display a random image (jQuery)</title>
+<style>
+body {margin-top: 30px; text-align: center;}
+img {margin-top: 20px; border-radius: 10px;}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div>
+  <button id="jsstyle">Show Image</button>
+</div>
+<div id="imageContainer"></div>
+
+<script>
+$(document).ready(function() {
+  $("#jsstyle").click(function() {
+    const images = [
+      {url: "http://farm4.staticflickr.com/3691/11268502654_f28f05966c_m.jpg", width: 240, height: 160},
+      {url: "http://farm1.staticflickr.com/33/45336904_1aef569b30_n.jpg", width: 320, height: 195},
+      {url: "http://farm6.staticflickr.com/5211/5384592886_80a512e2c9.jpg", width: 500, height: 343}
+    ];
+
+    // Chọn ngẫu nhiên 1 ảnh
+    const randomIndex = Math.floor(Math.random() * images.length);
+    const imgData = images[randomIndex];
+
+    // Hiển thị ảnh bằng jQuery
+    $("#imageContainer").html(
+      `<img src="${imgData.url}" width="${imgData.width}" height="${imgData.height}">`
+    );
+  });
+});
+</script>
+</body>
+</html>

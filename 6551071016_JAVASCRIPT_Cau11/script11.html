@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Câu 11 - Hiển thị tên file</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<h3>Upload file:</h3>
+<input type="file" id="fileInput">
+<p id="result"></p>
+
+<script>
+$(document).ready(function(){
+    $("#fileInput").change(function(){
+        let file = this.files[0];
+        if(file){
+            let name = file.name;
+            let ext = name.split('.').pop();
+            $("#result").text("Tên file: " + name + " | Phần mở rộng: ." + ext);
+        }
+    });
+});
+</script>
+</body>
+</html>

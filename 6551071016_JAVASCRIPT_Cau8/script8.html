@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Máy tính đơn giản</title>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    body { 
+        margin: 30px; 
+        font-family: Arial; 
+        text-align: center;
+    }
+    input[type="text"] {
+        width: 60px; 
+        text-align: center; 
+        margin: 5px;
+    }
+    button {
+        width: 40px;
+        height: 30px;
+        margin: 2px;
+        cursor: pointer;
+    }
+</style>
+</head>
+
+<body>
+<script>
+    $(document).ready(function() {
+        let operator = "";
+        // Khi người dùng nhấn vào nút phép toán (+ - * / ^)
+        $("button.op").click(function() {
+            operator = $(this).text(); // lấy ký hiệu phép toán
+        });
+        // Khi người dùng nhấn nút "="
+        $("#equal").click(function() {
+            let num1 = parseFloat($("#num1").val());
+            let num2 = parseFloat($("#num2").val());
+            let result = 0;
+
+            if (isNaN(num1) || isNaN(num2)) {
+                alert("Vui lòng nhập đủ hai số!");
+                return;
+            }
+
+            switch (operator) {
+                case "+": result = num1 + num2; break;
+                case "-": result = num1 - num2; break;
+                case "×": result = num1 * num2; break;
+                case "/": 
+                    if (num2 === 0) { alert("Không thể chia cho 0!"); return; }
+                    result = num1 / num2; 
+                    break;
+                case "^": result = Math.pow(num1, num2); break;
+                default:
+                    alert("Vui lòng chọn phép toán!");
+                    return;
+            }
+            // Hiển thị kết quả bằng DOM
+            $("#result").val(result);
+        });
+    });
+</script>
+    <h2>Máy tính bỏ túi</h2>
+    <input type="text" id="num1" placeholder="">
+    <button class="op">+</button>
+    <button class="op">-</button>
+    <button class="op">×</button>
+    <button class="op">/</button>
+    <button class="op">^</button>
+    <input type="text" id="num2" placeholder="">
+    <button id="equal">=</button>
+    <input type="text" id="result" placeholder="Kết quả" readonly>
+</body>
+</html>

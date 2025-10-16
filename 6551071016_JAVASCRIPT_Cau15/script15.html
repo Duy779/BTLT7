@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Câu 15 - Hiệu ứng chuyển tab</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+/* Layout khung chính */
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #e6f7a9;
+}
+/* Thanh tab */
+.tab {
+    overflow: hidden;
+    background-color: #d2f48a;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+/* Nút tab */
+.tab button {
+    background-color: #58b7e0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: 0.3s;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px 5px 0 0;
+}
+/* Khi hover tab */
+.tab button:hover {
+    background-color: #36a3d0;
+}
+/* Khi tab đang được chọn */
+.tab button.active {
+    background-color: white;
+    color: blue;
+}
+/* Nội dung của tab */
+.tabcontent {
+    display: none;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
+</head>
+
+<body>
+<h2>Chuyển tab bằng jQuery</h2>
+
+<div class="tab">
+    <button class="tablinks active" data-tab="tab1">THÔNG TIN CHÍNH</button>
+    <button class="tablinks" data-tab="tab2">HÌNH ẢNH</button>
+    <button class="tablinks" data-tab="tab3">SEO</button>
+</div>
+
+<div id="tab1" class="tabcontent" style="display: block;">
+    <p>Tab thông tin chính</p>
+</div>
+<div id="tab2" class="tabcontent">
+    <p>Tab hình ảnh</p>
+</div>
+<div id="tab3" class="tabcontent">
+    <p>Tab SEO</p>
+</div>
+
+<script>
+$(document).ready(function(){
+    $(".tablinks").click(function(){
+        var tabId = $(this).attr("data-tab");
+        
+        // Ẩn toàn bộ nội dung tab
+        $(".tabcontent").hide();
+        // Hiện nội dung được chọn
+        $("#" + tabId).show();
+
+        // Bỏ class active ở tab cũ, thêm vào tab mới
+        $(".tablinks").removeClass("active");
+        $(this).addClass("active");
+    });
+});
+</script>
+</body>
+</html>
+

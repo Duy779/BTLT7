@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chuyển hướng đến đường link</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $("#linkForm").submit(function(e) {
+            e.preventDefault(); // Ngăn form tự động gửi
+            var link = $("#linkInput").val().trim();
+            // Kiểm tra nếu người dùng chưa nhập link
+            if (link === "") {
+                alert("Vui lòng nhập đường link trước!");
+                return;
+            }
+            // Hỏi xác nhận người dùng
+            var confirmRedirect = confirm("Bạn có chắc muốn chuyển đến liên kết này?\n" + link);
+
+            if (confirmRedirect) {
+                // Nếu người dùng chọn OK -> chuyển hướng
+                window.location.href = link;
+            } 
+            // Nếu Cancel thì không làm gì
+        });
+    });
+    </script>
+</head>
+<body>
+    <h1>Nhập đường link và nhấn "Submit" để chuyển hướng:</h1>
+    <form id="linkForm">
+        <input type="text" id="linkInput" placeholder="Nhập đường link" size="40">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
